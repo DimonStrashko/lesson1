@@ -1,1 +1,3 @@
-print('lesson2')
+x = input("ввести четырехзначное число:")
+for y in x:
+    print(y)
