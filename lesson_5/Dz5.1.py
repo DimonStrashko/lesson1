@@ -1,20 +1,6 @@
 import keyword
 import string
-# _ => True
-# __ => False
-# ___ => False
-# x => True
-# get_value => True
-# get value => False
-# get!value => False
-# some_super_puper_value => True
-# Get_value => False
-# get_Value => False
-# getValue => False
-# 3m => False
-# m3 => True
-# assert => False
-# assert_exception => True
+
 # Введення рядка користувачем
 name = input("Введіть рядок: ")
 
@@ -32,10 +18,22 @@ else:
         # Перевірка, чи рядок не містить великі літери
         print(False)
     elif name in keyword.kwlist:
-        # Перевірка, чи рядок не є зареєстрованим словом
-        print(False)
-    elif name.count('_') > 1:
-        # Перевірка кількості нижніх підкреслень
+        # Перевірка, чи рядок не є зарезервованим словом
         print(False)
     else:
-        print(True)
+        # Перевірка наявності символів поряд із нижнім підкресленням
+        underscores_count = name.count('_')
+        valid = True
+
+        if underscores_count > 1:
+            for i in range(len(name)):
+                if name[i] == '_':
+                    # Перевірка, чи є символи з обох боків
+                    if (i == 0 or i == len(name) - 1 or not name[i - 1].isalpha() or not name[i + 1].isalpha()):
+                        valid = False
+                        break
+        elif underscores_count == 1:
+            # Якщо лише одне `_`, рядок вважається дійсним
+            valid = True
+
+        print(valid)
